@@ -1,0 +1,198 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+
+<body class="body-background">
+    <div class="container">
+        <div class="display-3 text-center mb-5">SIP Calculator</div>
+        <div class="input-container mt-5">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col">
+                        <label for="customRange12" class="form-label">Monthly Investment</label>
+
+                        <input type="range" class="form-range" min="1000" max="200000" step="1000" value="1000"
+                            id="js-amount-range" onchange="calculateResult()">
+
+
+                    </div>
+                    <div class="col mt-3">
+                        <input id="investment" type="text" class="form-control" >
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="customRange21" class="form-label">Number of Years</label>
+                            <input type="range" class="form-range" min="1" max="40" step="1" value="2" 
+                                id="js-amount-range1" onchange="calculateResult()">
+                        </div>
+                        <div class="col mt-3">
+                            <input id="years" type="number" class="form-control" >
+                        </div>
+                    </div>
+                    <div>
+
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="customRange3" class="form-label">Expected Rate of Return</label>
+                                <input type="range" class="form-range" min="1" max="30" step="0.1"
+                                    id="js-amount-range2" onchange="calculateResult()">
+                            </div>
+                            <div class="col mt-3">
+                                <input id="return-rate" type="text" class="form-control" >
+                            </div>
+                        </div>
+                        <div>
+
+
+
+
+
+                        </div>
+
+                        <!-- <div class="btn-calculate">
+                            <Calculate type="button" class=" btn btn-outline-primary mt-5" onclick="calculateResult()">
+                                >Calculate
+                                </button>
+                        </div> -->
+                        <div class="mt-3">
+
+
+                            <div class="display-6">Principal Amount <span id="input-1"></span></div>
+
+                            <div class="display-6">Total Interest <span id="input-2"> </span></div>
+                            <div class="display-6">Total Amount <span id="input-3"> </span></div>
+
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+</body>
+<script>
+    calculateResult = () => {
+        let amountValue = document.getElementById("investment").value;
+        console.log(amountValue)
+        document.getElementById("input-1").innerHTML = amountValue
+
+        let years = document.getElementById("years").value;
+        console.log(years);
+
+        document.getElementById("input-2").innerHTML = years.length === 0 ? "0" : years;
+
+        let returnRateValue = document.getElementById("return-rate").value;
+        console.log(returnRateValue);
+        let A = amountValue *
+            (Math.pow((1 + returnRateValue / 100), years));
+        let Ci = A - amountValue;
+        let Interest = ~~Ci;
+        document.getElementById("input-2").innerHTML = Interest
+        let totalAmount = ~~A
+        document.getElementById("input-3").innerHTML = totalAmount
+    }
+    // for a  Monthly investment slidbar
+    var finalvalue = '';
+    var finalbtprice = '';
+    var finalbitvalue = '';
+    var $rangeslider = $('#js-amount-range');
+    var $amount = $('#investment');
+    $rangeslider.on('input', function () {
+        var newVal = $amount[0].value = this.value;
+
+        var textval = parseInt(newVal);
+
+        if (textval >= 0 && textval < 1000) {
+            finalvalue = 0.16;
+            finalbitvalue = textval * finalvalue;
+        } else if (textval < 1001 && textval < 3000) {
+            finalvalue = 0.14;
+            finalbitvalue = textval * finalvalue;
+        } else if (textval <= 100000) {
+            finalvalue = 0.12;
+            finalbitvalue = textval * finalvalue;
+        }
+        finalbtcvalue = finalbitvalue / finalbtprice;
+
+    });
+
+    $amount.on('input', function () {
+        $rangeslider.val(this.value).change();
+    });
+
+
+
+    // years of slidebar
+    var finalvalue1 = '';
+    var finalbtprice1 = '';
+    var finalbitvalue1 = '';
+    var $rangeslider1 = $('#js-amount-range1');
+    var $amount1 = $('#years');
+    $rangeslider1.on('input', function () {
+        var newVal1 = $amount1[0].value = this.value;
+
+        var textval1 = parseInt(newVal1);
+
+        if (textval1 >= 0 && textval1 < 10) {
+            finalvalue1 = 0.16;
+            finalbitvalue1 = textval1 * finalvalue1;
+        } else if (textval1 < 11 && textval1 < 20) {
+            finalvalue1 = 0.14;
+            finalbitvalue1 = textval1 * finalvalue1;
+        } else if (textval1 <= 30) {
+            finalvalue1 = 0.12;
+            finalbitvalue1 = textval1 * finalvalue1;
+        }
+        finalbtcvalue1 = finalbitvalue1 / finalbtprice1;
+
+    });
+
+    $amount1.on('input', function () {
+        $rangeslider1.val(this.value).change();
+    });
+
+
+    //  Rate of slidebar
+    var finalvalue2 = '';
+    var finalbtprice2 = '';
+    var finalbitvalue2 = '';
+    var $rangeslider2 = $('#js-amount-range2');
+    var $amount2 = $('#return-rate');
+    $rangeslider2.on('input', function () {
+        var newVal2 = $amount2[0].value = this.value;
+
+        var textval2 = parseInt(newVal2);
+
+        if (textval2 >= 0 && textval2 < 10) {
+            finalvalue2 = 0.16;
+            finalbitvalue2 = textval2 * finalvalue2;
+        } else if (textval2 < 11 && textval2 < 20) {
+            finalvalue2 = 0.14;
+            finalbitvalue2 = textval2 * finalvalue2;
+        } else if (textval2 <= 30) {
+            finalvalue2 = 0.12;
+            finalbitvalue2 = textval2 * finalvalue2;
+        }
+        finalbtcvalue2 = finalbitvalue2 / finalbtprice2;
+
+    });
+
+    $amount2.on('input', function () {
+        $rangeslider2.val(this.value).change();
+    });
+
+
+
+</script>
+
+</html>
